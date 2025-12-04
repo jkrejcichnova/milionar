@@ -6,7 +6,6 @@ class User:
     def csv(self) -> list[str]:
         # Made to support csv.writer.writerow
         # returns [id, username, hashed_password]
-        return [self.id, self.username, self.hashed_password]
-
+        return [str(self.id), self.username, self.hashed_password]
     def __str__(self):
         return f"ID: {self.id}\nUsername: {self.username}"
