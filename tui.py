@@ -1,4 +1,4 @@
-def boilerplate():
+def menu_boilerplate():
     exit = False
     while not exit:
         menu: str = f"TITLE:\n1) Option\n2) Option\n3) Exit\n"
