@@ -31,7 +31,7 @@ def get_database() -> Database:
 def write_database(database: Database, path:None|str=None):
     if path == None:
         path = database.path
-    with open(path, mode="rw", encoding="UTF-8") as file:
+    with open(path, mode="w", encoding="UTF-8") as file:
         w = csv.writer(file)
         w.writerow(["id", "username", "password"])
         for user in database.data.values():
