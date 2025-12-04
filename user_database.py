@@ -13,6 +13,17 @@ class Database:
         return self.data[id]
     def get_ids(self) -> list[int]:
         return list(self.data.keys())
+    def get_usernames(self) -> list[str]:
+        usernames: list[str] = []
+        for user in self.data.values():
+            usernames.append(user.username)
+        return usernames
+    def get_id_from_username(self, username:str) -> int|None:
+        for user in self.data.values():
+            if user.username == username:
+                return user.id
+        return None
+
 
 def get_database() -> Database:
     app_config = config.load_config()
