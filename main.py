@@ -1,2 +1,2 @@
 import tui
-tui.main()
+tui.main_menu()

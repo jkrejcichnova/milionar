@@ -43,8 +43,15 @@ def register() -> User:
             print("Error: Passwords do not match. Please try again.\n")
     return auth.register(username, valid_password)
 
+def login() -> User|None:
+    # TODO
+    pass
 
-def main():
+def logged_in_menu(user: User):
+    # TODO
+    pass
+
+def main_menu():
     exit = False
     while not exit:
         menu: str = f"Welcome! Would you like to:\n1) Log-In\n2) Register\n3) Exit\n"
@@ -57,10 +64,14 @@ def main():
         try:
             match user_input:
                 case 1:
-                    print()
+                    user = login()
+                    if user == None:
+                        continue
+                    logged_in_menu(user)
                     # TODO
                 case 2:
                     user = register()
+                    logged_in_menu(user)
                     # TODO
                 case 3:
                     exit = True
