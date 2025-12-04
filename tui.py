@@ -1,3 +1,5 @@
+import auth
+from user import User
 def menu_boilerplate():
     exit = False
     while not exit:
@@ -23,6 +25,25 @@ def menu_boilerplate():
         except ValueError as e:
             print(f"Error: {e}")
 
+def register() -> User:
+    # TODO! create a reusable valid input helper
+    username: str = input("Create a username: ")
+    password_ok = False
+    valid_password: str = "" 
+    while not password_ok:
+        password: str = input("Create a password: ")
+        if len(password) < 4:
+            print("Error: Password must be at least 4 characters long.\n")
+            continue  
+        password_check: str = input("Enter your password again: ")
+        if password == password_check:
+            valid_password = password
+            password_ok = True
+        else:
+            print("Error: Passwords do not match. Please try again.\n")
+    return auth.register(username, valid_password)
+
+
 def main():
     exit = False
     while not exit:
@@ -39,8 +60,8 @@ def main():
                     print()
                     # TODO
                 case 2:
-                    print()
-                    #  TODO
+                    user = register()
+                    # TODO
                 case 3:
                     exit = True
                 case _:
