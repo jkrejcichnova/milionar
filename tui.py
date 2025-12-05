@@ -1,5 +1,6 @@
 import auth
 from user import User
+
 def menu_boilerplate():
     exit = False
     while not exit:
@@ -25,23 +26,38 @@ def menu_boilerplate():
         except ValueError as e:
             print(f"Error: {e}")
 
+def valid_input(prompt: str, validator_function, input_char: str|None = ": ") -> str:
+    while True:
+        user_input = input(prompt+str(input_char))
+        try:
+            validator_function(user_input)
+            return user_input
+        except ValueError as e:
+            print(f"Error: {e}")
+            print("Please try again.")
+
+def username_validator(username: str) -> ValueError|None:
+    if not username:
+        raise ValueError("Username cannot be empty.")
+    
+def password_validator(password: str) -> ValueError|None:
+    if not password:
+        raise ValueError("Password cannot be empty")
+    if len(password) < 4:
+        raise ValueError("Password must be at least 4 characters long.")
+
 def register() -> User:
-    # TODO! create a reusable valid input helper
-    username: str = input("Create a username: ")
-    password_ok = False
-    valid_password: str = "" 
-    while not password_ok:
-        password: str = input("Create a password: ")
-        if len(password) < 4:
-            print("Error: Password must be at least 4 characters long.\n")
-            continue  
-        password_check: str = input("Enter your password again: ")
-        if password == password_check:
-            valid_password = password
-            password_ok = True
-        else:
-            print("Error: Passwords do not match. Please try again.\n")
-    return auth.register(username, valid_password)
+    username: str = valid_input("Create a username", username_validator) 
+    while True:
+        try:
+            password: str = valid_input("Create a password", password_validator)
+            password_check: str = input("Enter your password again: ")
+            if password != password_check:
+                raise ValueError("Passwords do not match!")
+            return auth.register(username, password)
+        except ValueError as e:
+            print("Error: {e}")
+    
 
 def login() -> User|None:
     # TODO
