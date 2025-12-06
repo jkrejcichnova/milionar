@@ -14,8 +14,18 @@ def hash_password(cleartext_password: str) -> str:
     # TODO HASH PASSWORD!
     return cleartext_password
 
+def login(username: str, cleartext_password: str) -> User:
+    database = user_database.get_database()
+    id = database.get_id_from_username(username)
+    if id == None:
+        raise ValueError("User not found.")
+    user = database.data[id]
+    if user.hashed_password == hash_password(cleartext_password):
+        return user
+    else:
+        raise ValueError("The provided password is incorrect.")
+    
 def register(username: str, cleartext_password: str) -> User:
-    # Returns the user_id
     database = user_database.get_database()
     id = generate_id(database.get_ids())
     hashed_password = hash_password(cleartext_password)

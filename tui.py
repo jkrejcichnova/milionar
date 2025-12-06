@@ -60,8 +60,15 @@ def register() -> User:
     
 
 def login() -> User|None:
-    # TODO
-    pass
+    username: str = input("Enter your username: ") 
+    password: str = input("Enter your password: ")
+    user = None
+    try:
+        user = auth.login(username, password)
+    except ValueError as e:
+        print(f"Error: {e}")
+        return None
+    return user
 
 def logged_in_menu(user: User):
     # TODO
@@ -83,6 +90,7 @@ def main_menu():
                     user = login()
                     if user == None:
                         continue
+                    print(user)
                     logged_in_menu(user)
                     # TODO
                 case 2:
