@@ -1,6 +1,4 @@
-from re import U
 from user import User
-import user
 import user_database
 import random
 
