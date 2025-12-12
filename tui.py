@@ -1,5 +1,6 @@
 import auth
 from user import User
+import game
 
 def menu_boilerplate():
     exit = False
@@ -89,7 +90,7 @@ def logged_in_menu(user: User):
                     print("List all winners")
                     #  TODO
                 case 3:
-                    print("Play game")
+                    print(game.launch(user))
                 case 4:
                     exit = True
                 case _:

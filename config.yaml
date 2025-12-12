@@ -1,3 +1,4 @@
 paths:
   login_data: "login/"
   login_data_filename: "logins.db"
+  question_data: "info/quiz_questions.csv"
