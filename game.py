@@ -1,21 +1,9 @@
 from user import User
 from game_backend import Question, Questions
-from game_database import load_questions
+from game_database import load_questions, add_to_results
+from result import Result
 import time
 import random
-
-
-class Result:
-    def __init__(self, user: User, achieved: int, time_played: float):
-        self.user: User = user
-        self.achieved: int = achieved
-        self.successful: bool = achieved == 15 
-        self.time_played: float = time_played
-        # how long in seconds it took for the game to finish
-        self.timestamp: float = time.time()
-        # time since unix epoch
-    def __str__(self):
-        return f"{self.user.username} achieved {self.achieved} correct questions in {self.time_played}s"
 
 def launch(user: User) -> Result:
     all_questions: Questions = Questions(load_questions())
@@ -24,7 +12,9 @@ def launch(user: User) -> Result:
     chosen_questions.extend(random.choices(all_questions.medium, k=5))
     chosen_questions.extend(random.choices(all_questions.hard, k=5))
     print("Time to start!")
-    return game(user, Questions(chosen_questions))
+    result = game(user, Questions(chosen_questions))
+    add_to_results(result)
+    return result
     
 
 def game(user: User, questions: Questions) -> Result:
@@ -32,20 +22,20 @@ def game(user: User, questions: Questions) -> Result:
     start_time = time.time()
     for q in questions.easy:
         if not ask_question(q):
-            return Result(user, total_questions_answered, time.time()-start_time)
+            return Result(user.id, total_questions_answered, time.time()-start_time, time.time())
         else:
             total_questions_answered += 1
     for q in questions.medium:
         if not ask_question(q):
-            return Result(user, total_questions_answered, time.time()-start_time)
+            return Result(user.id, total_questions_answered, time.time()-start_time, time.time())
         else:
             total_questions_answered += 1
     for q in questions.hard:
         if not ask_question(q):
-            return Result(user, total_questions_answered, time.time()-start_time)
+            return Result(user.id, total_questions_answered, time.time()-start_time, time.time())
         else:
             total_questions_answered += 1
-    return Result(user, total_questions_answered, time.time()-start_time)
+    return Result(user.id, total_questions_answered, time.time()-start_time, time.time())
 
 
 def ask_question(question: Question) -> bool:

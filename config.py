@@ -13,6 +13,6 @@ def default_config() -> dict[str, dict[str, str]]:
     return {'paths': 
         {'login_data': 'login/',
          'login_data_filename': 'logins.db',
-         'question_data': 'info/quiz_questions.csv'}
+         'question_data': 'info/quiz_questions.csv',
+         'winner_data': 'info/games.csv'}
     }
-print(load_config())
