@@ -75,7 +75,7 @@ def login() -> User|None:
 def logged_in_menu(user: User):
     exit = False
     while not exit:
-        menu: str = f"Hello {user.username}:\n1) View question statistics\n2) List all winners\n3) Play \"Cichna wants to be a millionare\"\n4) Exit\n"
+        menu: str = f"Hello {user.username}:\n1) View your game statistics\n2) List all winners\n3) Play \"Cichna wants to be a millionare\"\n4) Exit\n"
         input_char: str = f"> "
         user_input_raw: str = input(menu+input_char).strip().lower()
         if not user_input_raw.isdigit():
@@ -85,7 +85,7 @@ def logged_in_menu(user: User):
         try:
             match user_input:
                 case 1:
-                    print("View stats")
+                    print("View your stats")
                     # TODO
                 case 2:
                     print("List all winners")
