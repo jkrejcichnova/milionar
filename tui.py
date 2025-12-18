@@ -1,6 +1,7 @@
 import auth
 from user import User
 import game
+from graph import q_categories, q_difficulties
 
 def menu_boilerplate():
     exit = False
@@ -98,10 +99,35 @@ def logged_in_menu(user: User):
         except ValueError as e:
             print(f"Error: {e}")
 
+def graph_menu():
+    exit = False
+    while not exit:
+        menu: str = f"View graphs:\n1) Question difficulties\n2) Question categories\n3) Exit\n"
+        input_char: str = f"> "
+        user_input_raw: str = input(menu+input_char).strip().lower()
+        if not user_input_raw.isdigit():
+            user_input = -1
+        else:
+            user_input: int = int(user_input_raw)
+        try:
+            match user_input:
+                case 1:
+                    q_difficulties()
+                    # TODO
+                case 2:
+                    q_categories()
+                    #  TODO
+                case 3:
+                    exit = True
+                case _:
+                    raise ValueError("Incorrect menu option.")
+        except ValueError as e:
+            print(f"Error: {e}")
+
 def main_menu():
     exit = False
     while not exit:
-        menu: str = f"Welcome! Would you like to:\n1) Log-In\n2) Register\n3) Exit\n"
+        menu: str = f"Welcome! Would you like to:\n1) Log-In\n2) Register\n3) View question statistics\n4) Exit\n"
         input_char: str = f"> "
         user_input_raw: str = input(menu+input_char).strip().lower()
         if not user_input_raw.isdigit():
@@ -122,6 +148,8 @@ def main_menu():
                     logged_in_menu(user)
                     # TODO
                 case 3:
+                    graph_menu()
+                case 4:
                     exit = True
                 case _:
                     raise ValueError("Incorrect menu option.")
