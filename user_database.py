@@ -23,6 +23,11 @@ class Database:
             if user.username == username:
                 return user.id
         return None
+    def get_username_from_id(self, id:int) -> str:
+        for user in self.data.values():
+            if user.id == id:
+                return user.username
+        return str(id)
 
 
 def get_database() -> Database:
