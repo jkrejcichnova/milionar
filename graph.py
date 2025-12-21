@@ -10,7 +10,7 @@ def q_categories():
         else:
             categories[q.category] += 1
     plt.xticks(rotation=45)
-    plt.bar(categories.keys(), categories.values())
+    plt.bar(list(categories.keys()), list(categories.values()))
     plt.ylabel('Počet otázek')
     plt.title('Poměr kategorií v datasetu otázek')
     plt.show()
@@ -20,11 +20,11 @@ def q_difficulties():
     difficulties: dict[str, int] = {}
     for q in questions:
         if q.difficulty not in difficulties.keys():
-            difficulties[q.difficulty] = 1
+            difficulties[q.difficulty.name] = 1
         else:
-            difficulties[q.difficulty] += 1
+            difficulties[q.difficulty.name] += 1
     plt.xticks(rotation=45)
-    plt.bar(difficulties.keys(), difficulties.values(), color=['green', 'orange', 'crimson'])
+    plt.bar(list(difficulties.keys()), list(difficulties.values()), color=['green', 'orange', 'crimson'])
     plt.ylabel('Počet otázek')
     plt.title('Poměr kategorií v datasetu otázek')
     plt.show()
