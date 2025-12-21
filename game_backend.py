@@ -21,7 +21,7 @@ class Questions:
         self.medium: list[Question] = []
         self.hard: list[Question] = []
         for q in questions:
-            match q.difficulty:
+            match q.difficulty.name:
                 case 'easy': self.easy.append(q)
                 case 'medium': self.medium.append(q)
                 case 'hard': self.hard.append(q)
