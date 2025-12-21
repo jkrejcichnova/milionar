@@ -111,7 +111,7 @@ def login() -> User|None:
     return user
 
 def top_dict(d: dict[Any, Any], top=5, r=False) -> dict[Any, Any]:
-    sorted_keys = sorted(d, key=d.get, reverse=r)
+    sorted_keys = sorted(d, key=d.__getitem__, reverse=r)
     top_keys = sorted_keys[:min(top, len(d))]
     final = {}
     for key in top_keys:
