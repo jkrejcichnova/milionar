@@ -8,7 +8,7 @@ class Database:
     def __init__(self, path: str):
         self.path: str = path
         self.data: dict[int, User] = {}
-    def add_account(self, id, username, hashed_password) -> User:
+    def add_account(self, id: int, username: str, hashed_password: str) -> User:
         self.data[id] = User(id, username, hashed_password)
         return self.data[id]
     def get_ids(self) -> list[int]:
@@ -61,6 +61,6 @@ def read_database(path) -> Database:
     with open(path, encoding="UTF-8") as file:
         r = csv.DictReader(file)
         for row in r:
-            database.add_account(row['id'], row['username'], row['password'])
+            database.add_account(int(row['id']), row['username'], row['password'])
     return database
     
