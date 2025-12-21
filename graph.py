@@ -19,7 +19,7 @@ def q_difficulties():
     questions = load_questions()
     difficulties: dict[str, int] = {}
     for q in questions:
-        if q.difficulty not in difficulties.keys():
+        if q.difficulty.name not in difficulties.keys():
             difficulties[q.difficulty.name] = 1
         else:
             difficulties[q.difficulty.name] += 1

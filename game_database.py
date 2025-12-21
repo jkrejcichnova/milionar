@@ -1,7 +1,7 @@
 import config
 import csv
 from result import Result
-from game_backend import Question
+from game_backend import Difficulty, Question
 import os
 
 
@@ -12,7 +12,13 @@ def load_questions() -> list[Question]:
     with open(filename, encoding="UTF-8") as file:
         r = csv.DictReader(file)
         for row in r:
-            questions.append(Question(row['difficulty'], row['category'], row['question'], row['correct_answer']=="True"))
+            d: Difficulty = Difficulty(1)
+            match row['difficulty']:
+                case 'easy': d = Difficulty(1)
+                case 'medium': d = Difficulty(2)
+                case 'hard': d = Difficulty(3)
+            print(f"{row} is {d}")
+            questions.append(Question(d, row['category'], row['question'], row['correct_answer']=="True"))
     return questions
 
 def get_results() -> list[Result]:
